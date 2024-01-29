@@ -44,9 +44,25 @@ html {
     gap: 1rem;
     
 }
-#carrito{
+#iconoCarrito{
     color: black;
     width: 2.2rem;
+}
+
+.carritoLogo{
+    animation: carrito 2s  0.3s infinite ;
+    border-radius: 50%;
+}
+
+@keyframes carrito {
+    from{
+        box-shadow: none;
+        transform: scale(1);
+    }
+    to{
+        box-shadow: 0px 10px 25px rgba(255, 0, 0, 0.885);
+        transform: scale(1.1);
+    }
 }
 
 .cebcera__logoBig{
@@ -94,11 +110,17 @@ html {
 .selezioni__articulo{
     width: 30rem;
     margin-top: 4rem;
-    
+    padding: 1rem;
     border-bottom: 1px solid black;
-    
 
 }
+
+.selezioni__articulo:hover{
+    border-bottom: none;
+    border: 3px solid rgba(255, 0, 0, 0.507);
+    border-radius: 0.5rem;
+}
+
 
 .articulo__img{
     width: 100%;
@@ -118,6 +140,22 @@ html {
 }
 .articulo__precio::after{
     content: "€";
+}
+.articulo__comprar {
+    text-decoration: none;
+    color: black;
+    border: 2px solid black;
+    border-radius: 8px; 
+    padding: 8px 16px; 
+    display: inline-block;
+    margin-bottom: 1rem;
+    transition: all 0.4s;
+}
+
+.articulo__comprar:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
 }
 
 .articulo__paletacolores{
@@ -203,4 +241,9 @@ footer ul{
 }
 .ayuda2{
     text-align: right;
+}
+
+
+#categorias{
+    width: 4rem;
 }

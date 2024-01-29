@@ -1,5 +1,5 @@
 // CREACION DE ITEM
-const item = (id, title, price, description, category,image, rating) => {
+const item = (id, title, price, description, category, image, rating) => {
     return {
         id,
         title,
@@ -12,7 +12,9 @@ const item = (id, title, price, description, category,image, rating) => {
 }
 
 var allItem = [];
-
+var carrito = [];
+var carritoNumeroArticulos = document.getElementById('carritoNumeroArticulos');
+var iconoCarrito = document.getElementById('iconoCarrito');
 // MODIFICAR ESTA FUNCION PARA QUE TAMBIEN FUNCIONE CON CATEGORIAS
 function traeTodo() {
     fetch('https://fakestoreapi.com/products')
@@ -34,27 +36,22 @@ function traeTodo() {
         .then(() => {
             console.log(allItem);
         })
-        .then(()=> inyectarArticulos(allItem))
+        .then(() => inyectarArticulos(allItem))
 }
 
 traeTodo();
-
-
 
 function inyectarArticulos(items) {
     const selezioniArticulos = document.querySelector('.selezioni__articulos');
 
     items.forEach(item => {
-        
         const articulo = document.createElement('div');
         articulo.classList.add('selezioni__articulo');
 
-        
         const articuloImg = document.createElement('img');
         articuloImg.classList.add('articulo__img');
         articuloImg.src = item.image;
 
-        
         const nombreElement = document.createElement('p');
         nombreElement.classList.add('articulo__nombre');
         nombreElement.textContent = item.title;
@@ -63,15 +60,32 @@ function inyectarArticulos(items) {
         precioElement.classList.add('articulo__precio');
         precioElement.textContent = item.price;
 
+        const comprarCarrito = document.createElement('a');
+        comprarCarrito.classList.add('articulo__comprar');
+        comprarCarrito.textContent = "Comprar";
+        comprarCarrito.setAttribute('data-id', item.id); // Añadir un atributo data-id con el id del artículo
+
+        // Manejar el evento de clic en el botón "Comprar"
+        comprarCarrito.addEventListener('click', agregarAlCarrito);
+
         articulo.appendChild(articuloImg);
         articulo.appendChild(nombreElement);
         articulo.appendChild(precioElement);
-        
+        articulo.appendChild(comprarCarrito);
+
         selezioniArticulos.appendChild(articulo);
     });
 }
 
+function agregarAlCarrito(event) {
+    const itemId = event.target.getAttribute('data-id'); // Obtener el id del artículo desde el botón clickeado
+    const itemSeleccionado = allItem.find(item => item.id === parseInt(itemId, 10)); // Ponemos el 10 para asegurar que tenga digitos del 0 al 9
 
-
-
-
+    if (itemSeleccionado) {
+        carrito.push(itemSeleccionado);
+        carritoNumeroArticulos.innerText="("+carrito.length+")"
+        iconoCarrito.classList.add("carritoLogo")
+        console.log("Artículo agregado al carrito:", itemSeleccionado);
+        console.log("Contenido del carrito:", carrito);
+    }
+}
