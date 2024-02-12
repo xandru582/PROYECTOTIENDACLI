@@ -15,9 +15,12 @@ var allItem = [];
 var carrito = [];
 var carritoNumeroArticulos = document.getElementById('carritoNumeroArticulos');
 var iconoCarrito = document.getElementById('iconoCarrito');
+
 // MODIFICAR ESTA FUNCION PARA QUE TAMBIEN FUNCIONE CON CATEGORIAS
-function traeTodo() {
-    fetch('https://fakestoreapi.com/products')
+function traeTodo(filtro = "") {
+
+    if(filtro.length>0){
+        fetch(`https://fakestoreapi.com/products/category/${filtro}`)
         .then(res => res.json())
         .then(json => {
             json.forEach(element => {
@@ -37,9 +40,32 @@ function traeTodo() {
             console.log(allItem);
         })
         .then(() => inyectarArticulos(allItem))
+    }else{
+        fetch('https://fakestoreapi.com/products')
+        .then(res => res.json())
+        .then(json => {
+            json.forEach(element => {
+                let nuevoItem = item(
+                    element.id,
+                    element.title,
+                    element.price,
+                    element.description,
+                    element.category,
+                    element.image,
+                    element.rating
+                );
+                allItem.push(nuevoItem);
+            });
+        })
+        .then(() => {
+            console.log(allItem);
+        })
+        .then(() => inyectarArticulos(allItem))
+    }
+    
 }
 
-traeTodo();
+traeTodo("");
 
 function inyectarArticulos(items) {
     const selezioniArticulos = document.querySelector('.selezioni__articulos');
@@ -83,7 +109,7 @@ function agregarAlCarrito(event) {
 
     if (itemSeleccionado) {
         carrito.push(itemSeleccionado);
-        carritoNumeroArticulos.innerText="("+carrito.length+")"
+        carritoNumeroArticulos.innerText = "(" + carrito.length + ")"
         iconoCarrito.classList.add("carritoLogo")
         console.log("Artículo agregado al carrito:", itemSeleccionado);
         console.log("Contenido del carrito:", carrito);
