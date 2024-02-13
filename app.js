@@ -15,7 +15,7 @@ var allItem = [];
 var carrito = [];
 var carritoNumeroArticulos = document.getElementById('carritoNumeroArticulos');
 var iconoCarrito = document.getElementById('iconoCarrito');
-
+var tituloCategoria = document.getElementById('selezioni__titulo')
 // MODIFICAR ESTA FUNCION PARA QUE TAMBIEN FUNCIONE CON CATEGORIAS
 function traeTodo(filtro = "") {
 
@@ -41,6 +41,8 @@ function traeTodo(filtro = "") {
             console.log(allItem);
         })
         .then(() => inyectarArticulos(allItem))
+        tituloCategoria.innerText=filtro
+        tituloCategoria.style.textTransform="uppercase"
     }else{
         allItem=[]
         fetch('https://fakestoreapi.com/products')
@@ -63,6 +65,8 @@ function traeTodo(filtro = "") {
             console.log(allItem);
         })
         .then(() => inyectarArticulos(allItem))
+        tituloCategoria.innerText="Todos los articulos"
+        tituloCategoria.style.textTransform="uppercase"
     }
     
 }
