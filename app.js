@@ -72,6 +72,15 @@ function traeTodo(filtro = "") {
 }
 
 traeTodo("");
+function ordenarPorPrecio(tipo) {
+    if (tipo === "mayor") {
+        allItem.sort((a, b) => b.price - a.price); // Ordenar de mayor a menor precio
+    }
+    if (tipo === "menor") {
+        allItem.sort((a, b) => a.price - b.price); // Ordenar de menor a mayor precio
+    }
+    inyectarArticulos(allItem); // Vuelve a inyectar los artículos en el DOM después de ordenarlos
+}
 
 function inyectarArticulos(items) {
     const selezioniArticulos = document.querySelector('.selezioni__articulos');
