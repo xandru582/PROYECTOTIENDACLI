@@ -20,6 +20,7 @@ var iconoCarrito = document.getElementById('iconoCarrito');
 function traeTodo(filtro = "") {
 
     if(filtro.length>0){
+        allItem=[]
         fetch(`https://fakestoreapi.com/products/category/${filtro}`)
         .then(res => res.json())
         .then(json => {
@@ -41,6 +42,7 @@ function traeTodo(filtro = "") {
         })
         .then(() => inyectarArticulos(allItem))
     }else{
+        allItem=[]
         fetch('https://fakestoreapi.com/products')
         .then(res => res.json())
         .then(json => {
@@ -69,7 +71,7 @@ traeTodo("");
 
 function inyectarArticulos(items) {
     const selezioniArticulos = document.querySelector('.selezioni__articulos');
-
+    selezioniArticulos.innerHTML=""
     items.forEach(item => {
         const articulo = document.createElement('div');
         articulo.classList.add('selezioni__articulo');
