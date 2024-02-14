@@ -89,10 +89,11 @@ html {
 
 .selezioni__articulos{
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
     justify-items: center;
     align-items: center;
     margin-bottom: 6rem;
+    margin: 0 auto;
     
 }
 @media (max-width: 1024px) {
@@ -266,5 +267,39 @@ footer ul{
 .categorias button:hover{
     background-color: black;
     color: white;
+    font-weight: bold;
+}
+
+/* DETALLE ARTICULO */
+.detalle-articulo {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.detalle-articulo__imagen {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.detalle-articulo__titulo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.detalle-articulo__descripcion {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.detalle-articulo__precio {
+    font-size: 20px;
     font-weight: bold;
 }

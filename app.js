@@ -89,6 +89,9 @@ function inyectarArticulos(items) {
         const articulo = document.createElement('div');
         articulo.classList.add('selezioni__articulo');
 
+        articulo.addEventListener('click', () => mostrarDetalleArticulo(item.id));
+
+
         const articuloImg = document.createElement('img');
         articuloImg.classList.add('articulo__img');
         articuloImg.src = item.image;
@@ -104,9 +107,9 @@ function inyectarArticulos(items) {
         const comprarCarrito = document.createElement('a');
         comprarCarrito.classList.add('articulo__comprar');
         comprarCarrito.textContent = "Comprar";
-        comprarCarrito.setAttribute('data-id', item.id); // Añadir un atributo data-id con el id del artículo
+        comprarCarrito.setAttribute('data-id', item.id);
 
-        // Manejar el evento de clic en el botón "Comprar"
+        
         comprarCarrito.addEventListener('click', agregarAlCarrito);
 
         articulo.appendChild(articuloImg);
@@ -116,6 +119,26 @@ function inyectarArticulos(items) {
 
         selezioniArticulos.appendChild(articulo);
     });
+}
+function mostrarDetalleArticulo(itemId) {
+    const selezioniArticulos = document.querySelector('.selezioni__articulos');
+    fetch(`https://fakestoreapi.com/products/${itemId}`)
+        .then(res => res.json())
+        .then(json => {
+            const detalleHTML = `
+                <div class="detalle-articulo">
+                    <img src="${json.image}" alt="${json.title}" class="detalle-articulo__imagen">
+                    <h2 class="detalle-articulo__titulo">${json.title}</h2>
+                    <p class="detalle-articulo__descripcion">${json.description}</p>
+                    <p class="detalle-articulo__precio">${json.price}€</p>
+                </div>
+            `;
+            
+            selezioniArticulos.innerHTML = detalleHTML;
+        })
+        .catch(error => {
+            console.error('Error al obtener los detalles del artículo:', error);
+        });
 }
 
 function agregarAlCarrito(event) {
